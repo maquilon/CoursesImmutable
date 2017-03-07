@@ -1,2 +1,2 @@
-# CoursesManager
-ReactJS Redux Boiler Plate for CRUD operations
+# Courses Manager
+ReactJS Redux CRUD operations
