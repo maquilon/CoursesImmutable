@@ -9,7 +9,8 @@ import keyMirror from '../../node_modules/fbjs/lib/keyMirror';
         UPDATE_COURSE_VALUE: null,
         UPDATE_COURSE_FORM_VALUE: null,  
         UPDATE_NEW_COURSE: null,
-        RESET_COURSE: null,     
+        RESET_COURSE: null,  
+        VALIDATE_COURSE: null,
 
         LOAD_AUTHORS: null,
 

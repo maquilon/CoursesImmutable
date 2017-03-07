@@ -16,7 +16,7 @@ class CourseForm extends Component {
     }
 
     saveCourse() {  
-        if (!this.courseFormIsValid()) { return; }     
+        if ( !this.courseFormIsValid() ) { return; }     
         this.setState({ saving: true });
         this.props.dispatch(CourseActions.addCourseAsync(this.props.course));
         this.props.dispatch(CourseActions.resetCourseToAdd(this.props.course));
@@ -24,13 +24,11 @@ class CourseForm extends Component {
     }
 
     courseFormIsValid() {
-        let formIsValid = true;
-        
+        let formIsValid = true;      
         if (this.props.course.get('title').length < 5) {
-            this.props.error.title = 'Title must be at least 5 characters' ;
+            this.props.dispatch(CourseActions.validateCourse('title', 'Title must be at least 5 characters'));
             formIsValid = false;
         }
-
         return formIsValid;
     }
 
@@ -46,12 +44,11 @@ class CourseForm extends Component {
                             onChange={(e) => this.props.dispatch(CourseActions.updateNewCourse('title', e.target.value))}
                             placeholder="course"
                             value={ this.props.course.get('title') } 
-                            errors={ this.state.error } 
-                           />
+                            errors={ this.props.error.get('title') } />
 
                         <SelectInput
                             name="authorId"
-                            label="Author"
+                            label="AUTHOR"
                             defaultOption="Select Author"
                             options={this.props.authors.get('authorList')}
                             value={this.props.course.get('authorId')} 
@@ -88,7 +85,7 @@ class CourseForm extends Component {
 function mapStateToProps(state) {
     return {
         course: state.courses.get('courseToAdd'),
-        error: state.course.get('error'),
+        error: state.courses.get('error'),
         authors: state.authors
     };
 }

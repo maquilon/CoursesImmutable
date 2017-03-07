@@ -37,6 +37,10 @@ function coursesReducer(state = courseInitialState.courses, action) {
             state = state.setIn(['courseToAdd', action.property], action.value);
             return state;
 
+        case constants.VALIDATE_COURSE:   
+            state = state.setIn(['error', action.property], action.value);
+            return state;            
+
         case constants.UPDATE_COURSE_FORM_VALUE: 
             let index = state.get('coursesList').findIndex((course)=> {return course.get('Id') === action.course.get('Id');});
             state = state.setIn(['coursesList', index, action.key], action.value );

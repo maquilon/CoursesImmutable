@@ -57,7 +57,7 @@ class CourseUpdate extends Component {
 
                                     <SelectInput
                                         name="authorId"
-                                        label="Author"
+                                        label="AUTHOR"
                                         defaultOption="Select Author"
                                         options={this.props.authors.get('authorList')}
                                         value={this.props.course.get('authorId')}

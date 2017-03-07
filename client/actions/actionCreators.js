@@ -82,6 +82,15 @@ class CourseActions {
         };
     }
 
+    static validateCourse(property, value)
+    {
+        return {
+            type: Constants.VALIDATE_COURSE,
+            property,
+            value
+        };
+    }    
+
     // ===================================================================== //
     // ===================================================================== //
     // ========================== API: ASYNC CALLS ========================= //
