@@ -27,7 +27,11 @@ function coursesReducer(state = courseInitialState.courses, action) {
 
         case constants.RESET_COURSE:
             state = state.set('courseToAdd', courseInitialState.courses.get('courseToAdd'));            
-            return state;              
+            return state; 
+
+        case constants.RESET_VALIDATE_COURSE:
+            state = state.set('error', courseInitialState.courses.get('error'));            
+            return state;                          
 
         case constants.UPDATE_COURSE_VALUE:           
             state = state.updateIn(['course', action.index, 'value'], (v) => v = action.value);

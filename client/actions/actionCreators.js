@@ -49,6 +49,12 @@ class CourseActions {
         };
     }
 
+    static resetValidateCourse() {
+        return {
+            type: Constants.RESET_VALIDATE_COURSE,
+        };
+    }
+
     static updateCourse(course) {
         return {
             type: Constants.UPDATE_COURSE,

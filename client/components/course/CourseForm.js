@@ -9,7 +9,6 @@ import CourseActions from '../../actions/actionCreators';
 class CourseForm extends Component {
     constructor(props, context) {
         super(props, context);
-
         this.state = {
             saving: false
         };
@@ -20,15 +19,27 @@ class CourseForm extends Component {
         this.setState({ saving: true });
         this.props.dispatch(CourseActions.addCourseAsync(this.props.course));
         this.props.dispatch(CourseActions.resetCourseToAdd(this.props.course));
+        this.props.disabled(CourseActions.resetCourseValidation(this.props.error));        
         browserHistory.push('/');
     }
 
     courseFormIsValid() {
-        let formIsValid = true;      
+        let formIsValid = true;  
+
         if (this.props.course.get('title').length < 5) {
             this.props.dispatch(CourseActions.validateCourse('title', 'Title must be at least 5 characters'));
             formIsValid = false;
         }
+        if (this.props.course.get('category').length < 2) {
+            this.props.dispatch(CourseActions.validateCourse('category', 'Please enter category information'));
+            formIsValid = false;
+        }
+        if (this.props.course.get('length').length < 2) {
+            this.props.dispatch(CourseActions.validateCourse('length', 'Please enter length of the vide information'));
+            formIsValid = false;
+        }        
+
+
         return formIsValid;
     }
 
@@ -38,13 +49,15 @@ class CourseForm extends Component {
                 <form >
                     <fieldset>
                         <legend>NEW COURSE</legend>
+                        
                         <TextInput
                             name="title"
                             label="TITLE"
                             onChange={(e) => this.props.dispatch(CourseActions.updateNewCourse('title', e.target.value))}
                             placeholder="course"
                             value={ this.props.course.get('title') } 
-                            errors={ this.props.error.get('title') } />
+                            error={ (this.props.course.get('title').length < 5) ? this.props.error.get('title') : '' } 
+                            />
 
                         <SelectInput
                             name="authorId"
@@ -52,21 +65,25 @@ class CourseForm extends Component {
                             defaultOption="Select Author"
                             options={this.props.authors.get('authorList')}
                             value={this.props.course.get('authorId')} 
-                            onChange={(e) => this.props.dispatch(CourseActions.updateNewCourse('authorId', e.target.value))} />
+                            onChange={(e) => this.props.dispatch(CourseActions.updateNewCourse('authorId', e.target.value))}  />
+
 
                         <TextInput
                             name="category"
                             label="CATEGORY"
                             onChange={(e) => this.props.dispatch(CourseActions.updateNewCourse('category', e.target.value))}
                             placeholder="e.g. computer science" 
-                            value={this.props.course.get('category')} />
+                            value={this.props.course.get('category')} 
+                            error={ (this.props.course.get('category').length != 0) ? this.props.error.get('category') : '' }                             
+                            />
 
                         <TextInput
                             name="length"
                             label="LENGTH"
                             onChange={(e) => this.props.dispatch(CourseActions.updateNewCourse('length', e.target.value))}
                             placeholder="HH:MM" 
-                            value={this.props.course.get('length')} />
+                            value={this.props.course.get('length')}
+                            error={ (this.props.course.get('length').length != 0) ? this.props.error.get('length') : '' } />
 
                         <input
                             type="button"
